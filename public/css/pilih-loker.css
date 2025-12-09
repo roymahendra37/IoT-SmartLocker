@@ -1,0 +1,252 @@
+    body {
+      background: rgb(226, 226, 226);
+      /* min-height: 100vh; */
+      padding: 20px 0;
+    }
+
+    .header-section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-section h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 10px;
+    }
+
+    .header-section p {
+      color: #718096;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .locker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .locker-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 3px solid transparent;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .locker-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .locker-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+
+    .locker-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .locker-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .locker-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+
+    .locker-status {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .status-available {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+
+    .status-occupied {
+      background: #fed7d7;
+      color: #742a2a;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .locker-card.occupied {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .locker-card.occupied:hover {
+      transform: none;
+      border-color: transparent;
+    }
+
+    .select-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .select-btn:hover {
+      background: linear-gradient(135deg, #5568d3 0%, #633b8f 100%);
+      transform: scale(1.05);
+    }
+
+    .select-btn:disabled {
+      background: #e2e8f0;
+      color: #a0aec0;
+      cursor: not-allowed;
+    }
+
+    .empty-state {
+      background: white;
+      border-radius: 15px;
+      padding: 60px 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-state-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+      color: #2d3748;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      color: #718096;
+      margin-bottom: 20px;
+    }
+
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .locker-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+      }
+
+      .header-section {
+        padding: 25px 20px;
+        border-radius: 15px;
+      }
+
+      .header-section h1 {
+        font-size: 24px;
+      }
+
+      .locker-card {
+        padding: 20px 15px;
+      }
+
+      .locker-icon {
+        font-size: 40px;
+      }
+
+      .locker-number {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .locker-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .header-section {
+        padding: 20px 15px;
+      }
+
+      .header-section h1 {
+        font-size: 20px;
+      }
+
+      .header-section p {
+        font-size: 13px;
+      }
+
+      .locker-card {
+        padding: 15px 10px;
+      }
+
+      .locker-icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      .locker-number {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .locker-status {
+        font-size: 11px;
+        padding: 4px 12px;
+        margin-bottom: 10px;
+      }
+
+      .select-btn {
+        padding: 8px 20px;
+        font-size: 13px;
+      }
+    }
+
+    /* Loading Animation */
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .loading {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
