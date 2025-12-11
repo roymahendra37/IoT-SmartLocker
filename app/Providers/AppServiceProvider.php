@@ -20,11 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $host = request()->getHost();
-        if (str_contains($host, 'ngrok')) {
+        // Paksa semua URL asset mengikuti scheme saat ini (http/https otomatis)
+        if (app()->environment('production')) {
             URL::forceScheme('https');
-        } else {
-            URL::forceScheme('http');
         }
     }
 }
