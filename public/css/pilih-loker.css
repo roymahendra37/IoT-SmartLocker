@@ -1,6 +1,5 @@
     body {
-      background: rgb(226, 226, 226);
-      /* min-height: 100vh; */
+      background: linear-gradient(135deg, #dbeafe, #f8fafc);
       padding: 20px 0;
     }
 
@@ -239,9 +238,12 @@
 
     /* Loading Animation */
     @keyframes pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: 1;
       }
+
       50% {
         opacity: 0.5;
       }

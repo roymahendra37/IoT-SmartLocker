@@ -1,6 +1,5 @@
     body {
-      /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
-      background: rgb(226, 226, 226);
+      background: linear-gradient(135deg, #dbeafe, #f8fafc);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -50,6 +49,7 @@
         transform: scale(0);
         opacity: 0;
       }
+
       to {
         transform: scale(1);
         opacity: 1;

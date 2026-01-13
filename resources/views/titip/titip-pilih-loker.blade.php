@@ -10,9 +10,13 @@
 </head>
 <body>
   <div class="container-custom">
+
     <div class="header-section">
       <h1>📦 Pilih Loker Tersedia</h1>
       <p>Pilih salah satu loker yang tersedia untuk menyimpan barang</p>
+      <div class="mb-4 mt-4">
+        <a href="{{ route('home') }}" class="select-btn text-decoration-none">Kembali</a>
+      </div>
     </div>
 
     @if($lockers->count() > 0)
