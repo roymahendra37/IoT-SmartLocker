@@ -7,6 +7,29 @@
   <h2>Dashboard</h2>
 </div>
 
+<!-- Status ESP32 -->
+<div class="card mb-4 shadow-sm border-0 border-start border-4 border-info">
+    <div class="card-body d-flex justify-content-between align-items-center py-3">
+        <div>
+            <h5 class="mb-0 text-muted small text-uppercase fw-bold">Status ESP32 (Polling Terakhir)</h5>
+            <div class="h5 mb-0 fw-bold mt-1">
+                <span id="esp-timestamp" class="text-dark">
+                    @if($espLastPoll)
+                        {{ \Carbon\Carbon::parse($espLastPoll)->translatedFormat('l, d F Y H:i:s') }}
+                    @else
+                        <span class="text-muted fst-italic">Belum ada data</span>
+                    @endif
+                </span>
+                <small id="esp-relative" class="text-muted ms-2">
+                    @if($espLastPoll)
+                        ({{ \Carbon\Carbon::parse($espLastPoll)->diffForHumans() }})
+                    @endif
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row g-4">
     <!-- Card Admin -->
     <div class="col-lg-4 col-md-6">
@@ -141,6 +164,33 @@
           }
         }
       });
+
+      // Polling Status ESP32
+      function updateEspStatus() {
+        fetch('{{ route("dashboard.espStatus") }}')
+            .then(response => response.json())
+            .then(data => {
+                const timestampEl = document.getElementById('esp-timestamp');
+                const relativeEl = document.getElementById('esp-relative');
+
+                if (data.status === 'success') {
+                    // Update content
+                    timestampEl.innerHTML = data.timestamp;
+                    relativeEl.innerHTML = data.relative;
+
+                    // Ensure styling is correct
+                    timestampEl.classList.remove('text-muted', 'fst-italic');
+                    timestampEl.classList.add('text-dark');
+                } else if (data.status === 'empty') {
+                    timestampEl.innerHTML = '<span class="text-muted fst-italic">Belum ada data</span>';
+                    relativeEl.innerHTML = '';
+                }
+            })
+            .catch(error => console.error('Error fetching ESP status:', error));
+      }
+
+      // Update setiap 5 detik
+      setInterval(updateEspStatus, 5000);
     });
   </script>
 @endsection

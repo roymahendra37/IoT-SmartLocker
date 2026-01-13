@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Locker;
 use App\Models\Transaction;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -43,10 +44,35 @@ class DashboardController extends Controller
             $labels[] = \Carbon\Carbon::parse($usage->date)->format('d M');
             $data[] = $usage->total;
         }
+
+        // Ambil data polling ESP32 terakhir
+        $espLastPoll = Setting::where('key', 'esp_last_poll')->value('value');
         
         return view('admin.dashboard', compact(
             'adminCount', 'lockerCount', 'lockerAvailable', 'lockerOccupied', 'lockerMaintenance',
-            'transactionCount', 'transactionCompleted', 'transactionActive', 'transactionExpired', 'labels', 'data'
+            'transactionCount', 'transactionCompleted', 'transactionActive', 'transactionExpired', 'labels', 'data',
+            'espLastPoll'
         ));
+    }
+
+    public function getEspStatus()
+    {
+        $espLastPoll = Setting::where('key', 'esp_last_poll')->value('value');
+
+        if ($espLastPoll) {
+            return response()->json([
+                'status' => 'success',
+                'timestamp' => \Carbon\Carbon::parse($espLastPoll)->translatedFormat('l, d F Y H:i:s'),
+                'relative' => '(' . \Carbon\Carbon::parse($espLastPoll)->diffForHumans() . ')',
+                'raw' => $espLastPoll
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'empty',
+            'timestamp' => 'Belum ada data',
+            'relative' => '',
+            'raw' => null
+        ]);
     }
 }

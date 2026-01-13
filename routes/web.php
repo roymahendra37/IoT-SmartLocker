@@ -29,6 +29,7 @@ Route::middleware(['admin.auth'])->group(function () {
 
     // Dashboard admin
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.index');
+    Route::get('/dashboard/esp-status', [DashboardController::class, 'getEspStatus'])->name('dashboard.espStatus');
 
     // Mengelola data admin
     Route::get('/admins', [AdminController::class, 'daftarAdmin'])->name('admins.index');
